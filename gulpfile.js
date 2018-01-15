@@ -40,8 +40,6 @@ gulp.task('build-theme', function() {
 
 gulp.task('dev', ['build-theme', 'webserver'], function() {
   gulp.watch([source + theme + '/*.scss'], ['build-theme']);
-  gulp.watch(webdirectory);
-  return gulp.start(['webserver']);
 });
 
 gulp.task('default', ['build-theme'], function() {
