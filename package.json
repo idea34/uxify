@@ -1,0 +1,35 @@
+{
+  "name": "uxify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/idea34/uxify.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/idea34/uxify/issues"
+  },
+  "homepage": "https://github.com/idea34/uxify#readme",
+  "dependencies": {
+    "bootstrap": "^4.0.0-beta.3",
+    "jquery": "^3.2.1",
+    "popper.js": "^1.12.9"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.2.3",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.9.1",
+    "gulp-postcss": "^7.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-scss-lint": "^0.4.0",
+    "gulp-sourcemaps": "^2.6.2",
+    "gulp-server-livereload": "^1.8.4"
+  }
+}
