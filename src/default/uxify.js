@@ -1,3 +1,5 @@
+// import bootstrap default modules/scripts
 var $ = require('jquery');
-
-$('body').css('background-color', 'green');
+window.$ = $;
+window.Popper = require('popper.js').default;
+require('bootstrap');
