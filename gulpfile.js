@@ -6,19 +6,55 @@ var gulp  = require('gulp'),
   cleanCss = require('gulp-clean-css'),
   rename = require('gulp-rename'),
   postcss = require('gulp-postcss'),
-  autoprefixer = require('autoprefixer');
+  npmdist = require('gulp-npm-dist'),
+  rename = require('gulp-rename'),
+  uglify = require('gulp-uglify'),
+  sourcestream = require('vinyl-source-stream'),
+  browserify = require('browserify'),
+  babelify = require('babelify'),
+  buffer = require('vinyl-buffer'),
+  autoprefixer = require('autoprefixer'),
+  glob = require('glob'),
+  eventstream = require('event-stream');
 
 // configs
-var theme = 'default',
+var theme = 'uxify',
+  themedir = 'default',
   version = '1.0.0',
   source = 'src/',
   destination = 'dist/' + version + '/',
-  webdirectory = 'dist/';
+  destinationjs = destination + 'js/',
+  webdirectory = 'dist/',
+  themejs = source + '/' + themedir + '/' + theme + '.js';
+
+// default dev task 
+gulp.task('dev', ['build-theme', 'webserver'], function() {
+  gulp.watch([source + themedir + '/*.scss'], ['build-theme']);
+  gulp.watch([themejs], ['bundlejs']);
+});
+
+// browserify compile themejs to bundle
+gulp.task('bundlejs', function () {
+      var bundler = browserify({
+          entries: themejs,
+          debug: true
+      });
+      bundler.transform(babelify);
+
+      bundler.bundle()
+          .on('error', function (err) { console.error(err); })
+          .pipe(sourcestream(theme + '.js'))
+          .pipe(buffer())
+          .pipe(sourcemaps.init({ loadMaps: true }))
+          .pipe(uglify()) // Use any gulp plugins you want now
+          .pipe(sourcemaps.write('./'))
+          .pipe(gulp.dest(destination));
+  });
 
 
-
+// build css from sass
 gulp.task('build-theme', function() {
-  return gulp.src([ source + theme + '/*.scss'])
+  return gulp.src([ source + themedir + '/*.scss'])
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss([ autoprefixer({ browsers: [
@@ -38,13 +74,20 @@ gulp.task('build-theme', function() {
     .pipe(gulp.dest(destination))
 });
 
-gulp.task('dev', ['build-theme', 'webserver'], function() {
-  gulp.watch([source + theme + '/*.scss'], ['build-theme']);
-});
+
 
 gulp.task('default', ['build-theme'], function() {
 });
 
+
+// Copy js dependencies (old script tag method)
+gulp.task('copyjsdeps', function() {
+  gulp.src(npmdist(), {base:'./node_modules/'})
+        .pipe(rename(function(path) {
+            path.dirname = path.dirname.replace(/\/dist/, '').replace(/\\dist/, '');
+        }))
+    .pipe(gulp.dest(destinationjs));
+});
 
 //
 // #### dev server
