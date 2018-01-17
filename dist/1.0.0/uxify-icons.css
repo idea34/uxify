@@ -1,0 +1,38 @@
+.icon {
+    font-size: 10px;
+}
+
+.icon:before {
+    content:' ';
+    vertical-align:middle;
+    display: inline-block;
+    background-image: url("images/uxify-icons.svg");
+    background-repeat: no-repeat;
+    background-size: 3.2em 6.4em;
+}
+
+.no-svg .icon:before {
+    background-image: url("../images/uxify-icons.png");
+}
+
+
+
+  .icon.icon-copy:before {
+      background-position: 0em 0em;
+      width: 3.2em;
+      height: 3.2em;
+  }
+
+
+
+
+  .icon.icon-group:before {
+      background-position: 0em -3.2em;
+      width: 3.2em;
+      height: 3.2em;
+  }
+
+
+
+
+

@@ -16,6 +16,7 @@ var gulp  = require('gulp'),
   autoprefixer = require('autoprefixer'),
   glob = require('glob'),
   eventstream = require('event-stream');
+  svgsprite = require("gulp-svg-sprites");
 
 // configs
 var theme = 'uxify',
@@ -25,9 +26,31 @@ var theme = 'uxify',
   destination = 'dist/' + version + '/',
   destinationjs = destination + 'js/',
   webdirectory = 'dist/',
-  themejs = source + '/' + themedir + '/' + theme + '.js';
+  themepath = source + '/' + themedir + '/';
+  themejs = themepath + theme + '.js';
+  themeassets = themepath + 'assets/';
+  themeicons = themeassets + 'icons/';
 
-// default dev task 
+
+//
+gulp.task('sprites', function () {
+    return gulp.src(themeicons + '*.svg')
+        .pipe(svgsprite({
+          selector: "icon-%f",
+          "cssFile": theme + "-icons.css",
+          "svgPath": "%f",
+          svg: {
+                sprite: "images/" + theme + "-icons.svg"
+          },
+          preview: {
+              sprite: theme + "-icons.html"
+          }
+
+        }))
+        .pipe(gulp.dest(destination));
+});
+
+// default dev task
 gulp.task('dev', ['build-theme', 'webserver'], function() {
   gulp.watch([source + themedir + '/*.scss'], ['build-theme']);
   gulp.watch([themejs], ['bundlejs']);
