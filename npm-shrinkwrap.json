@@ -3173,6 +3173,66 @@
         "vinyl-sourcemaps-apply": "0.2.1"
       }
     },
+    "gulp-google-webfonts": {
+      "version": "0.0.14",
+      "resolved": "https://registry.npmjs.org/gulp-google-webfonts/-/gulp-google-webfonts-0.0.14.tgz",
+      "integrity": "sha1-LcmQG2jC93c3ri/FMsMa7G0I4S8=",
+      "dev": true,
+      "requires": {
+        "async": "0.9.2",
+        "commander": "2.13.0",
+        "lodash.defaults": "3.1.2",
+        "mkdirp": "0.5.1",
+        "through2": "0.6.5",
+        "vinyl": "0.4.6"
+      },
+      "dependencies": {
+        "async": {
+          "version": "0.9.2",
+          "resolved": "https://registry.npmjs.org/async/-/async-0.9.2.tgz",
+          "integrity": "sha1-rqdNXmHB+JlhO/ZL2mbUx48v0X0=",
+          "dev": true
+        },
+        "clone": {
+          "version": "0.2.0",
+          "resolved": "https://registry.npmjs.org/clone/-/clone-0.2.0.tgz",
+          "integrity": "sha1-xhJqkK1Pctv1rNskPMN3JP6T/B8=",
+          "dev": true
+        },
+        "readable-stream": {
+          "version": "1.0.34",
+          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.0.34.tgz",
+          "integrity": "sha1-Elgg40vIQtLyqq+v5MKRbuMsFXw=",
+          "dev": true,
+          "requires": {
+            "core-util-is": "1.0.2",
+            "inherits": "2.0.3",
+            "isarray": "0.0.1",
+            "string_decoder": "0.10.31"
+          }
+        },
+        "through2": {
+          "version": "0.6.5",
+          "resolved": "https://registry.npmjs.org/through2/-/through2-0.6.5.tgz",
+          "integrity": "sha1-QaucZ7KdVyCQcUEOHXp6lozTrUg=",
+          "dev": true,
+          "requires": {
+            "readable-stream": "1.0.34",
+            "xtend": "4.0.1"
+          }
+        },
+        "vinyl": {
+          "version": "0.4.6",
+          "resolved": "https://registry.npmjs.org/vinyl/-/vinyl-0.4.6.tgz",
+          "integrity": "sha1-LzVsh6VQolVGHza76ypbqL94SEc=",
+          "dev": true,
+          "requires": {
+            "clone": "0.2.0",
+            "clone-stats": "0.0.1"
+          }
+        }
+      }
+    },
     "gulp-npm-dist": {
       "version": "0.1.6",
       "resolved": "https://registry.npmjs.org/gulp-npm-dist/-/gulp-npm-dist-0.1.6.tgz",
@@ -4905,6 +4965,16 @@
       "integrity": "sha1-j1dWDIO1n8JwvT1WG2kAQ0MOJVE=",
       "dev": true
     },
+    "lodash._baseassign": {
+      "version": "3.2.0",
+      "resolved": "https://registry.npmjs.org/lodash._baseassign/-/lodash._baseassign-3.2.0.tgz",
+      "integrity": "sha1-jDigmVAPIVrQnlnxci/QxSv+Ck4=",
+      "dev": true,
+      "requires": {
+        "lodash._basecopy": "3.0.1",
+        "lodash.keys": "3.1.2"
+      }
+    },
     "lodash._basecopy": {
       "version": "3.0.1",
       "resolved": "https://registry.npmjs.org/lodash._basecopy/-/lodash._basecopy-3.0.1.tgz",
@@ -4922,6 +4992,23 @@
       "resolved": "https://registry.npmjs.org/lodash._basevalues/-/lodash._basevalues-3.0.0.tgz",
       "integrity": "sha1-W3dXYoAr3j0yl1A+JjAIIP32Ybc=",
       "dev": true
+    },
+    "lodash._bindcallback": {
+      "version": "3.0.1",
+      "resolved": "https://registry.npmjs.org/lodash._bindcallback/-/lodash._bindcallback-3.0.1.tgz",
+      "integrity": "sha1-5THCdkTPi1epnhftlbNcdIeJOS4=",
+      "dev": true
+    },
+    "lodash._createassigner": {
+      "version": "3.1.1",
+      "resolved": "https://registry.npmjs.org/lodash._createassigner/-/lodash._createassigner-3.1.1.tgz",
+      "integrity": "sha1-g4pbri/aymOsIt7o4Z+k5taXCxE=",
+      "dev": true,
+      "requires": {
+        "lodash._bindcallback": "3.0.1",
+        "lodash._isiterateecall": "3.0.9",
+        "lodash.restparam": "3.6.1"
+      }
     },
     "lodash._getnative": {
       "version": "3.9.1",
@@ -4970,6 +5057,29 @@
       "resolved": "https://registry.npmjs.org/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz",
       "integrity": "sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=",
       "dev": true
+    },
+    "lodash.defaults": {
+      "version": "3.1.2",
+      "resolved": "https://registry.npmjs.org/lodash.defaults/-/lodash.defaults-3.1.2.tgz",
+      "integrity": "sha1-xzCLGNv4vJNy1wGnNJPGEZK9Liw=",
+      "dev": true,
+      "requires": {
+        "lodash.assign": "3.2.0",
+        "lodash.restparam": "3.6.1"
+      },
+      "dependencies": {
+        "lodash.assign": {
+          "version": "3.2.0",
+          "resolved": "https://registry.npmjs.org/lodash.assign/-/lodash.assign-3.2.0.tgz",
+          "integrity": "sha1-POnwI0tLIiPilrj6CsH+6OvKZPo=",
+          "dev": true,
+          "requires": {
+            "lodash._baseassign": "3.2.0",
+            "lodash._createassigner": "3.1.1",
+            "lodash.keys": "3.1.2"
+          }
+        }
+      }
     },
     "lodash.escape": {
       "version": "3.2.0",

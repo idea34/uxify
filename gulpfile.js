@@ -9,14 +9,15 @@ var gulp  = require('gulp'),
   npmdist = require('gulp-npm-dist'),
   rename = require('gulp-rename'),
   uglify = require('gulp-uglify'),
+  svgsprite = require("gulp-svg-sprites"),
+  googleWebFonts = require('gulp-google-webfonts'),
+  buffer = require('vinyl-buffer'),
   sourcestream = require('vinyl-source-stream'),
   browserify = require('browserify'),
   babelify = require('babelify'),
-  buffer = require('vinyl-buffer'),
   autoprefixer = require('autoprefixer'),
   glob = require('glob'),
   eventstream = require('event-stream');
-  svgsprite = require("gulp-svg-sprites");
 
 // configs
 var theme = 'uxify',
@@ -25,35 +26,49 @@ var theme = 'uxify',
   source = 'src/',
   destination = 'dist/' + version + '/',
   destinationjs = destination + 'js/',
+  destinationicons = destination + 'icons/',
+  destinationfonts = destination + 'fonts/',
   webdirectory = 'dist/',
   themepath = source + '/' + themedir + '/';
   themejs = themepath + theme + '.js';
   themeassets = themepath + 'assets/';
   themeicons = themeassets + 'icons/';
+  themefonts = themeassets + 'fonts/';
 
+// add google web fonts
+gulp.task('fonts', function () {
+	return gulp.src(themefonts + 'fonts.list')
+		.pipe(googleWebFonts({
+    	cssFilename: theme + '-fonts.css'
+    }))
+		.pipe(gulp.dest(destinationfonts))
+		;
+});
 
-//
-gulp.task('sprites', function () {
+// icon font from svg sprite
+gulp.task('icons', function () {
     return gulp.src(themeicons + '*.svg')
         .pipe(svgsprite({
           selector: "icon-%f",
           "cssFile": theme + "-icons.css",
           "svgPath": "%f",
           svg: {
-                sprite: "images/" + theme + "-icons.svg"
+                sprite: theme + "-icons.svg"
           },
           preview: {
-              sprite: theme + "-icons.html"
+              sprite: "index.html"
           }
 
         }))
-        .pipe(gulp.dest(destination));
+        .pipe(gulp.dest(destinationicons));
 });
 
 // default dev task
-gulp.task('dev', ['build-theme', 'webserver'], function() {
+gulp.task('dev', ['build-theme', 'webserver', 'icons', 'fonts'], function() {
   gulp.watch([source + themedir + '/*.scss'], ['build-theme']);
   gulp.watch([themejs], ['bundlejs']);
+  gulp.watch([themeicons], ['icons']);
+  gulp.watch([themefonts + 'fonts.list'], ['fonts']);
 });
 
 // browserify compile themejs to bundle
@@ -71,7 +86,7 @@ gulp.task('bundlejs', function () {
           .pipe(sourcemaps.init({ loadMaps: true }))
           .pipe(uglify()) // Use any gulp plugins you want now
           .pipe(sourcemaps.write('./'))
-          .pipe(gulp.dest(destination));
+          .pipe(gulp.dest(destinationjs));
   });
 
 
@@ -99,7 +114,7 @@ gulp.task('build-theme', function() {
 
 
 
-gulp.task('default', ['build-theme'], function() {
+gulp.task('default', ['dev'], function() {
 });
 
 
