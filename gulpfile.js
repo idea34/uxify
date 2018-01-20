@@ -47,9 +47,10 @@ gulp.task('fonts', function () {
 
 // icon font from svg sprite
 gulp.task('icons', function () {
-    return gulp.src(themeicons + '*.svg')
+    return gulp.src(themeicons + '**/*.svg')
         .pipe(svgsprite({
           selector: "icon-%f",
+          baseSize: 14,
           "cssFile": theme + "-icons.css",
           "svgPath": "%f",
           svg: {

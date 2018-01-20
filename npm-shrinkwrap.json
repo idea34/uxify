@@ -2352,8 +2352,7 @@
     "escape-html": {
       "version": "1.0.1",
       "resolved": "https://registry.npmjs.org/escape-html/-/escape-html-1.0.1.tgz",
-      "integrity": "sha1-GBoobq05ejmpKFfPsdQwUuNWv/A=",
-      "dev": true
+      "integrity": "sha1-GBoobq05ejmpKFfPsdQwUuNWv/A="
     },
     "escape-string-regexp": {
       "version": "1.0.5",
@@ -4239,6 +4238,14 @@
       "resolved": "https://registry.npmjs.org/hoek/-/hoek-2.16.3.tgz",
       "integrity": "sha1-ILt0A9POo5jpHcRxCo/xuCdKJe0=",
       "dev": true
+    },
+    "holderjs": {
+      "version": "2.9.4",
+      "resolved": "https://registry.npmjs.org/holderjs/-/holderjs-2.9.4.tgz",
+      "integrity": "sha1-oWXbwlMuv/l1SRMSJZ0MUgwFmJg=",
+      "requires": {
+        "shaven": "0.8.1"
+      }
     },
     "home-or-tmp": {
       "version": "2.0.0",
@@ -7076,6 +7083,14 @@
             "jsonify": "0.0.0"
           }
         }
+      }
+    },
+    "shaven": {
+      "version": "0.8.1",
+      "resolved": "https://registry.npmjs.org/shaven/-/shaven-0.8.1.tgz",
+      "integrity": "sha1-D0LU+zLEBINJ/57pwpb17/styq8=",
+      "requires": {
+        "escape-html": "1.0.1"
       }
     },
     "shell-escape": {
