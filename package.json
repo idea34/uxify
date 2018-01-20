@@ -1,7 +1,7 @@
 {
   "name": "uxify",
   "version": "1.0.0",
-  "description": "",
+  "description": "UXify - Description coming soon.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,6 +23,13 @@
   },
   "devDependencies": {
     "autoprefixer": "^7.2.3",
+    "vinyl-source-stream": "^2.0.0",
+    "vinyl-buffer": "1.0.1",
+    "browserify": "15.2.0",
+    "babelify": "8.0.0",
+    "babel-core": "6.26.0",
+    "glob": "^7.1.2",
+    "event-stream": "^0.2.0",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.9.1",
     "gulp-postcss": "^7.0.0",
@@ -30,6 +37,11 @@
     "gulp-sass": "^3.1.0",
     "gulp-scss-lint": "^0.6.0",
     "gulp-sourcemaps": "^2.6.2",
-    "gulp-server-livereload": "^1.8.4"
+    "gulp-babel": "^7.0.0",
+    "gulp-server-livereload": "^1.8.4",
+    "gulp-npm-dist": "^0.1.6",
+    "gulp-uglify": "^3.0.0",
+    "gulp-svg-sprites": "^4.1.2",
+    "gulp-google-webfonts": "^0.0.14"
   }
 }
