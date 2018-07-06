@@ -2,9 +2,10 @@
 var
   themesdir = './themes/',
   theme = 'uxify',
+  themeversion = '1.0.0',
   themepath = themesdir + theme + '/',
-  themebuild = themepath + 'build/',
-  themejs = themepath + theme + '.js';
+  themejs = themepath + theme + '.js',
+  themebuild = themepath + 'build/' + themeversion + '/';
 
 // modules
 var
@@ -40,14 +41,15 @@ gulp.task('build-theme', function() {
       'Android >= 4',
       'Opera >= 12']})]))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(themebuild))
+    .pipe(gulp.dest(themebuild + 'css/'))
     .pipe(cleanCss())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest(themebuild))
+    .pipe(gulp.dest(themebuild + 'css/'))
 });
 
 gulp.task('dev', ['build-theme', 'webserver'],  function() {
   gulp.watch([themepath + '*.scss'], ['build-theme']);
+  gulp.watch([themejs], ['bundle-js']);
 });
 
 gulp.task('default', ['dev'], function() {
@@ -68,14 +70,14 @@ gulp.task('bundle-js', function () {
           .pipe(sourcemaps.init({ loadMaps: true }))
           .pipe(uglify()) // Use any gulp plugins you want now
           .pipe(sourcemaps.write('./'))
-          .pipe(gulp.dest(themebuild));
+          .pipe(gulp.dest(themebuild + 'js/'));
   });
 
 //
 // #### dev server
 // options: https://www.npmjs.com/package/gulp-server-livereload
 gulp.task('webserver', function() {
-  gulp.src( themepath  )
+  gulp.src( themebuild  )
     .pipe(server({
       livereload: true,
       open: true,
