@@ -1,9 +1,10 @@
 // configs
 var
   themesdir = './themes/',
-  theme = 'default',
+  theme = 'uxify',
   themepath = themesdir + theme + '/',
-  themebuild = themepath + 'build/'
+  themebuild = themepath + 'build/',
+  themejs = themepath + theme + '.js';
 
 // modules
 var
@@ -14,6 +15,13 @@ var
   rename = require('gulp-rename'),
   postcss      = require('gulp-postcss'),
   autoprefixer = require('autoprefixer'),
+  // js
+  uglify = require('gulp-uglify'),
+  browserify = require('browserify'),
+  babelify = require('babelify'),
+  buffer = require('vinyl-buffer'),
+  sourcestream = require('vinyl-source-stream'),
+  // webserver
   server = require('gulp-server-livereload');
 
 
@@ -44,6 +52,24 @@ gulp.task('dev', ['build-theme', 'webserver'],  function() {
 
 gulp.task('default', ['dev'], function() {
 });
+
+// browserify compile themejs to bundle
+gulp.task('bundle-js', function () {
+      var bundler = browserify({
+          entries: themejs,
+          debug: true
+      });
+      bundler.transform(babelify);
+
+      bundler.bundle()
+          .on('error', function (err) { console.error(err); })
+          .pipe(sourcestream(theme + '.js'))
+          .pipe(buffer())
+          .pipe(sourcemaps.init({ loadMaps: true }))
+          .pipe(uglify()) // Use any gulp plugins you want now
+          .pipe(sourcemaps.write('./'))
+          .pipe(gulp.dest(themebuild));
+  });
 
 //
 // #### dev server
