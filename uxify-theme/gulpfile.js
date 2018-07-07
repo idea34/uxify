@@ -18,27 +18,42 @@ var
   // webserver
   server = require('gulp-server-livereload');
 
-
+// define current theme by command line
+// gulp theme --uxify
+//
 var themes = {
   string: 'theme',
-  default: { theme: process.theme || 'starter' }
+  default: { theme: process.theme || 'starter' } // default theme
 };
 
 var options = minimist(process.argv.slice(2), themes);
 var theme = options.theme;
 
-// configs
+
+// build configs
+//
 var
-  //theme = 'starter',
-  themeversion = '1.0.0',
   themesdir = './themes/',
   themepath = themesdir + theme + '/',
-  themejs = themepath + theme + '.js',
-  themebuild = themepath + 'build/' + themeversion + '/';
+  themejs = themepath + theme + '.js';
+
+  //versioning
+  var fs = require("fs");
+  var config = JSON.parse(fs.readFileSync(themepath + '_theme-config.json'));
+
+  // default
+  if(config) {
+    themeversion = config.version;
+  } else {
+    themeversion = '1.0.0';
+  }
+
+  // map build version 
+  var
+    themebuild = themepath + 'build/' + themeversion + '/';
 
 
-
-
+// tasks
 
 gulp.task('build-theme', function() {
   return gulp.src([ themepath + '*.scss'])

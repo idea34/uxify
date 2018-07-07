@@ -36,6 +36,7 @@
     "gulp-if": "^2.0.2",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0",
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.0",
+    "fs-read-data": "^1.0.4"
   }
 }
