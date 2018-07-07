@@ -1,8 +1,8 @@
 // configs
 var
-  themesdir = './themes/',
-  theme = 'uxify',
+  theme = 'starter',
   themeversion = '1.0.0',
+  themesdir = './themes/',
   themepath = themesdir + theme + '/',
   themejs = themepath + theme + '.js',
   themebuild = themepath + 'build/' + themeversion + '/';
@@ -47,12 +47,13 @@ gulp.task('build-theme', function() {
     .pipe(gulp.dest(themebuild + 'css/'))
 });
 
-gulp.task('dev', ['build-theme', 'webserver'],  function() {
+gulp.task('dev', ['build-theme', 'bundle-js', 'webserver'],  function() {
   gulp.watch([themepath + '*.scss'], ['build-theme']);
   gulp.watch([themejs], ['bundle-js']);
 });
 
 gulp.task('default', ['dev'], function() {
+  
 });
 
 // browserify compile themejs to bundle
