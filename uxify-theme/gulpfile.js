@@ -1,12 +1,3 @@
-// configs
-var
-  theme = 'starter',
-  themeversion = '1.0.0',
-  themesdir = './themes/',
-  themepath = themesdir + theme + '/',
-  themejs = themepath + theme + '.js',
-  themebuild = themepath + 'build/' + themeversion + '/';
-
 // modules
 var
   gulp  = require('gulp'),
@@ -16,6 +7,8 @@ var
   rename = require('gulp-rename'),
   postcss      = require('gulp-postcss'),
   autoprefixer = require('autoprefixer'),
+  gulpif = require('gulp-if'),
+  minimist = require('minimist'),
   // js
   uglify = require('gulp-uglify'),
   browserify = require('browserify'),
@@ -24,6 +17,27 @@ var
   sourcestream = require('vinyl-source-stream'),
   // webserver
   server = require('gulp-server-livereload');
+
+
+var themes = {
+  string: 'theme',
+  default: { theme: process.theme || 'starter' }
+};
+
+var options = minimist(process.argv.slice(2), themes);
+var theme = options.theme;
+
+// configs
+var
+  //theme = 'starter',
+  themeversion = '1.0.0',
+  themesdir = './themes/',
+  themepath = themesdir + theme + '/',
+  themejs = themepath + theme + '.js',
+  themebuild = themepath + 'build/' + themeversion + '/';
+
+
+
 
 
 gulp.task('build-theme', function() {
@@ -50,10 +64,11 @@ gulp.task('build-theme', function() {
 gulp.task('dev', ['build-theme', 'bundle-js', 'webserver'],  function() {
   gulp.watch([themepath + '*.scss'], ['build-theme']);
   gulp.watch([themejs], ['bundle-js']);
+  console.log( options.theme );
 });
 
 gulp.task('default', ['dev'], function() {
-  
+
 });
 
 // browserify compile themejs to bundle
