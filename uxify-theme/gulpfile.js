@@ -19,7 +19,7 @@ var
   server = require('gulp-server-livereload');
 
 // define current theme by command line
-// gulp theme --uxify
+// gulp dev --theme uxify
 //
 var themes = {
   string: 'theme',
@@ -48,7 +48,7 @@ var
     themeversion = '1.0.0';
   }
 
-  // map build version 
+  // map build version
   var
     themebuild = themepath + 'build/' + themeversion + '/';
 
@@ -79,7 +79,7 @@ gulp.task('build-theme', function() {
 gulp.task('dev', ['build-theme', 'bundle-js', 'webserver'],  function() {
   gulp.watch([themepath + '*.scss'], ['build-theme']);
   gulp.watch([themejs], ['bundle-js']);
-  console.log( options.theme );
+  console.log( 'working on theme: ' + options.theme + " version: " + themeversion );
 });
 
 gulp.task('default', ['dev'], function() {
