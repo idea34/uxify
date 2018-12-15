@@ -12,6 +12,12 @@ This is simple starter project to help you get started quickly when making a cus
 
 `gulp create --theme [your-theme-name]`
 
+**View a new theme**
+
+`gulp view --theme [your-theme-name]`
+
+(Static web server view of theme build)
+
 **Work on a theme**
 
 `gulp dev --theme [your-theme-name]`
@@ -20,8 +26,21 @@ This is simple starter project to help you get started quickly when making a cus
 
 `gulp build --theme [your-theme-name]`
 
+(Also what you are viewing when running dev)
 
+**Theme Sub commands**
 
+`gulp bundle-css --theme [your-theme-name]`
+
+`gulp bundle-js --theme [your-theme-name]`
+
+`gulp bundle-html --theme [your-theme-name]`
+
+(Builds all html and subdirectories like /docs/ or /html/)
+
+`gulp bundle-images --theme [your-theme-name]`
+
+(If a value is set in /\_theme-config.json)
 
 ## What this project does
 

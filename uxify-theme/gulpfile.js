@@ -9,6 +9,7 @@ var
   autoprefixer = require('autoprefixer'),
   gulpif = require('gulp-if'),
   minimist = require('minimist'),
+  fs = require("fs"),
   // js
   uglify = require('gulp-uglify'),
   browserify = require('browserify'),
@@ -32,31 +33,53 @@ var theme = options.theme;
 
 // build configs
 //
-var
-  themesdir = './themes/',
-  themepath = themesdir + theme + '/',
-  themejs = themepath + theme + '.js';
+var themesdir = './themes/';
+var themepath = themesdir + theme + '/';
+var themejs = themepath + theme + '.js';
+var buildsdir = './builds/';
 
-  //versioning
-  var fs = require("fs");
-  var config = false; 
-  // var config = JSON.parse(fs.readFileSync(themepath + '_theme-config.json'));
 
-  // default
+//versioning
+try {
+  var config = JSON.parse(fs.readFileSync(themepath + '_theme-config.json'));
+}
+catch (err) {
+  var config = false;
+}
+
+  // version default
   if(config) {
     themeversion = config.version;
+    jsDir = config.js;
+    cssDir = config.css;
+    imgDir = config.images;
   } else {
     themeversion = '1.0.0';
+    jsDir = "js/";
+    cssDir = "css/";
+    imgDir = false;
   }
 
   // map build version
   var
-    themebuild = themepath + 'build/' + themeversion + '/';
+    themebuild = buildsdir + theme + '/' + themeversion + '/';
 
 
 // tasks
 
-gulp.task('build-theme', function() {
+gulp.task('bundle-images', function() {
+  if(imgDir) {
+    return gulp.src(themepath + imgDir + '**/*')
+      .pipe(gulp.dest(themebuild + imgDir ));
+  }
+});
+
+gulp.task('bundle-html', function() {
+  return gulp.src(themepath + '**/*.html')
+    .pipe(gulp.dest(themebuild));
+});
+
+gulp.task('bundle-css', function() {
   return gulp.src([ themepath + '*.scss'])
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
@@ -74,13 +97,23 @@ gulp.task('build-theme', function() {
     .pipe(gulp.dest(themebuild + 'css/'))
     .pipe(cleanCss())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest(themebuild + 'css/'))
+    .pipe(gulp.dest(themebuild + cssDir))
 });
 
-gulp.task('dev', ['build-theme', 'bundle-js', 'webserver'],  function() {
-  gulp.watch([themepath + '*.scss'], ['build-theme']);
+gulp.task('dev', ['bundle-css', 'bundle-js', 'bundle-html', 'bundle-images', 'view'],  function() {
+  gulp.watch([themepath + '*.scss'], ['bundle-css']);
+  gulp.watch([themepath + '*.html'], ['bundle-html']);
+  gulp.watch([themepath + imgDir + '**/*'], ['bundle-images']);
   gulp.watch([themejs], ['bundle-js']);
-  console.log( 'working on theme: ' + options.theme + " version: " + themeversion );
+  console.log( 'Working on theme: ' + options.theme + " version: " + themeversion );
+});
+
+gulp.task('build', ['bundle-css', 'bundle-js', 'bundle-html', 'bundle-images'],  function() {
+  console.log( 'Building theme: ' + options.theme + " version: " + themeversion );
+  gulp.start('bundle-css');
+  gulp.start('bundle-js');
+  gulp.start('bundle-html');
+  gulp.start('bundle-images');
 });
 
 gulp.task('default', ['dev'], function() {
@@ -133,13 +166,13 @@ gulp.task('bundle-js', function () {
           .pipe(sourcemaps.init({ loadMaps: true }))
           .pipe(uglify()) // Use any gulp plugins you want now
           .pipe(sourcemaps.write('./'))
-          .pipe(gulp.dest(themebuild + 'js/'));
+          .pipe(gulp.dest(themebuild + jsDir ));
   });
 
 //
 // #### dev server
 // options: https://www.npmjs.com/package/gulp-server-livereload
-gulp.task('webserver', function() {
+gulp.task('view', function() {
   gulp.src( themebuild  )
     .pipe(server({
       livereload: true,
