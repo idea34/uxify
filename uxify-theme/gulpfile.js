@@ -39,7 +39,8 @@ var
 
   //versioning
   var fs = require("fs");
-  var config = JSON.parse(fs.readFileSync(themepath + '_theme-config.json'));
+  var config = false; 
+  // var config = JSON.parse(fs.readFileSync(themepath + '_theme-config.json'));
 
   // default
   if(config) {
@@ -83,8 +84,39 @@ gulp.task('dev', ['build-theme', 'bundle-js', 'webserver'],  function() {
 });
 
 gulp.task('default', ['dev'], function() {
-
+  console.log('Theme preview started!');
 });
+
+gulp.task('create', function() {
+  var name, i = process.argv.indexOf("--theme");
+    if(i>-1) {
+        name = process.argv[i+1];
+        path = themesdir + name;
+
+        //
+        if( name === 'starter' || name === 'uxify') { return console.log ('That name is taken.'); }
+
+        // copy
+        gulp.src([ themesdir + 'starter/**', '!themes/starter/starter.js', '!themes/starter/starter.scss'], {
+            // base: 'src'
+        })
+        .pipe(gulp.dest( path ));
+
+        // create js
+        gulp.src('themes/starter/starter.js')
+        .pipe(rename(name + '.js'))
+        .pipe(gulp.dest(path));
+
+        // create scss
+        gulp.src('themes/starter/starter.scss')
+        .pipe(rename(name + '.scss'))
+        .pipe(gulp.dest(path));
+
+    } else {
+      console.log('Use \'gulp create --name [your-theme-name]\'');
+    }
+});
+
 
 // browserify compile themejs to bundle
 gulp.task('bundle-js', function () {
