@@ -2,10 +2,12 @@
 var
   gulp  = require('gulp'),
   sass = require('gulp-sass'),
+  sassImportJson = require('gulp-sass-import-json'),
+  jsonModify = require('gulp-json-modify'),
   sourcemaps = require('gulp-sourcemaps'),
   cleanCss = require('gulp-clean-css'),
   rename = require('gulp-rename'),
-  postcss      = require('gulp-postcss'),
+  postcss = require('gulp-postcss'),
   autoprefixer = require('autoprefixer'),
   gulpif = require('gulp-if'),
   minimist = require('minimist'),
@@ -53,11 +55,15 @@ catch (err) {
     jsDir = config.js;
     cssDir = config.css;
     imgDir = config.images;
+    fontDir = config.fonts;
+    assetDir = config.assets;
   } else {
     themeversion = '1.0.0';
     jsDir = "js/";
     cssDir = "css/";
     imgDir = false;
+    fontDir = false;
+    assetDir = false;
   }
 
   // map build version
@@ -74,6 +80,20 @@ gulp.task('bundle-images', function() {
   }
 });
 
+gulp.task('bundle-fonts', function() {
+  if(fontDir) {
+    return gulp.src(themepath + fontDir + '**/*')
+      .pipe(gulp.dest(themebuild + fontDir ));
+  }
+});
+
+gulp.task('bundle-assets', function() {
+  if(assetDir) {
+    return gulp.src(themepath + assetDir + '**/*')
+      .pipe(gulp.dest(themebuild + assetDir ));
+  }
+});
+
 gulp.task('bundle-html', function() {
   return gulp.src(themepath + '**/*.html')
     .pipe(gulp.dest(themebuild));
@@ -82,6 +102,7 @@ gulp.task('bundle-html', function() {
 gulp.task('bundle-css', function() {
   return gulp.src([ themepath + '*.scss'])
     .pipe(sourcemaps.init())
+    .pipe(sassImportJson())
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss([ autoprefixer({ browsers: [
       'Chrome >= 35',
@@ -100,20 +121,24 @@ gulp.task('bundle-css', function() {
     .pipe(gulp.dest(themebuild + cssDir))
 });
 
-gulp.task('dev', ['bundle-css', 'bundle-js', 'bundle-html', 'bundle-images', 'view'],  function() {
+gulp.task('dev', ['bundle-css', 'bundle-js', 'bundle-html', 'bundle-images', 'bundle-fonts', 'bundle-assets', 'view'],  function() {
   gulp.watch([themepath + '*.scss'], ['bundle-css']);
   gulp.watch([themepath + '*.html'], ['bundle-html']);
   gulp.watch([themepath + imgDir + '**/*'], ['bundle-images']);
+  gulp.watch([themepath + fontDir + '**/*'], ['bundle-fonts']);
+  gulp.watch([themepath + assetDir + '**/*'], ['bundle-assets']);
   gulp.watch([themejs], ['bundle-js']);
   console.log( 'Working on theme: ' + options.theme + " version: " + themeversion );
 });
 
-gulp.task('build', ['bundle-css', 'bundle-js', 'bundle-html', 'bundle-images'],  function() {
+gulp.task('build', ['bundle-css', 'bundle-js', 'bundle-html', 'bundle-images', 'bundle-fonts', 'bundle-assets'],  function() {
   console.log( 'Building theme: ' + options.theme + " version: " + themeversion );
   gulp.start('bundle-css');
   gulp.start('bundle-js');
   gulp.start('bundle-html');
   gulp.start('bundle-images');
+  gulp.start('bundle-fonts');
+  gulp.start('bundle-assets');
 });
 
 gulp.task('default', ['dev'], function() {
@@ -145,8 +170,14 @@ gulp.task('create', function() {
         .pipe(rename(name + '.scss'))
         .pipe(gulp.dest(path));
 
+        // update theme config with name
+        gulp.src('themes/starter/_theme-config.json')
+        .pipe(jsonModify({ key: 'name', value: name }))
+        .pipe(gulp.dest(path));
+
+
     } else {
-      console.log('Use \'gulp create --name [your-theme-name]\'');
+      console.log('Use \'gulp create --theme [your-theme-name]\'');
     }
 });
 

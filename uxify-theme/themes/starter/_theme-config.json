@@ -1,6 +1,9 @@
 {
+  "name": "starter",
   "version": "1.0.0",
   "js": "js/",
   "css": "css/",
-  "images": false
+  "images": false,
+  "fonts": false,
+  "assets": false
 }

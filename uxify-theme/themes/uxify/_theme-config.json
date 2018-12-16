@@ -1,6 +1,9 @@
 {
+  "name": "uxify",
   "version": "1.0.0",
   "js": "js/",
   "css": "css/",
-  "images": "images/"
+  "images": "images/",
+  "fonts": "fonts/",
+  "assets": "assets/"
 }
