@@ -4,7 +4,7 @@
  *  Built with the Bootstrap Theme Kit by HackerThemes (https://hackerthemes.com)
  */
 
-@import '_theme-variables.json';
+@import '_theme-variables.json'; // https://www.npmjs.com/package/gulp-sass-import-json
 @import 'theme-variables';
 @import '../../../node_modules/bootstrap/scss/bootstrap';
 @import 'theme-styles';

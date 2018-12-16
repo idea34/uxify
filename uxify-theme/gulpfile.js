@@ -122,7 +122,7 @@ gulp.task('bundle-css', function() {
 });
 
 gulp.task('dev', ['bundle-css', 'bundle-js', 'bundle-html', 'bundle-images', 'bundle-fonts', 'bundle-assets', 'view'],  function() {
-  gulp.watch([themepath + '*.scss'], ['bundle-css']);
+  gulp.watch([themepath + '*.scss', themepath + '*.json'], ['bundle-css']);
   gulp.watch([themepath + '*.html'], ['bundle-html']);
   gulp.watch([themepath + imgDir + '**/*'], ['bundle-images']);
   gulp.watch([themepath + fontDir + '**/*'], ['bundle-fonts']);

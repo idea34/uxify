@@ -1,32 +1,36 @@
 // Overwrite Bootstrap's variables here
 // You can find them in node_modules/bootstrap/scss/_variables.scss
 // Copy the variables you need into this file, don't modify files under node_modules/
+//
+// Use any variables set in _theme_variables.json
 
 // Some example variables that you can uncomment:
 
 // Enabling shadows and gradients
-//$enable-shadows: true;
-//$enable-gradients: true;
+$enable-shadows: true;
+$enable-gradients: true;
 
 // Changing the body background and text
-//$body-bg: #d3e9eb;
-//$body-color: #151417;
+$body-bg: map-get($colors, gray-mid-light);
+$body-color: map-get($colors, gray-dark);
 
-// Changing the border radius of buttons
-//$border-radius: 15px;
+// Changing the border radius
+$border-radius: 8px;
 
 // Changing the theme colors
-//$primary: #202f41;
-//$secondary: #436296;
-//$success: #2bc550;
-//$info: #495dff;
-//$warning: #ef8143;
-//$danger: #ff293a;
-//$light: #dfe6ee;
-//$dark: #0f1319;
-
+$primary: map-get($colors, blue);
+$secondary: map-get($colors, purple-dark);
+$success: map-get($colors, green);
+$info: map-get($colors, gray-mid);
+$warning: map-get($colors, yellow);
+$danger: map-get($colors, red);
+$light: map-get($colors, gray-light);
+$dark: map-get($colors, gray-dark);
+$purple: map-get($colors, purple);
+$orange: map-get($colors, orange);
 
 // Adding (!) an additional theme color (ex. classes btn-cool, bg-cool)
-//$theme-colors: (
-//  "cool": #4d3fa3
-//);
+$theme-colors: (
+ "cool": $purple,
+ "warm": $orange
+);

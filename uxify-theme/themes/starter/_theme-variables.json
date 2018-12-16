@@ -1,3 +1,16 @@
 {
-  
+    "prefix": "ux-",
+    "colors": {
+      "red": "#dc3545",
+      "blue": "#007bff",
+      "green": "#28a745",
+      "yellow": "#ffc107",
+      "orange": "#F6511D",
+      "purple": "#8C74FF",
+      "purple-dark": "#436296",
+      "gray-dark": "#071E22",
+      "gray-mid": "#95B8D1",
+      "gray-mid-light": "#E5ECF4",
+      "gray-light": "#EFFFFA"
+    }
 }
