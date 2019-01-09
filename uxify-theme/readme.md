@@ -9,6 +9,7 @@ View default theme
 ------------------
 
 `gulp`
+
 Create a new theme
 ------------------
 

@@ -1,0 +1,34 @@
+{
+  "id": false,
+  "name": "",
+  "path": false,
+  "content": {
+    "icon": "",
+    "title": "",
+    "image": "",
+    "text": "",
+    "video": false,
+    "audio": false,
+    "links": false
+  },
+  "ownership": {
+    "contributors": [],
+    "accounts": false,
+    "groups": [],
+    "sharing": []
+  },
+  "language": "en",
+  "layout": false,
+  "order": false,
+  "state": false,
+  "type": false,
+  "location": false,
+  "attributes": false,
+  "related": {
+    "parent": false,
+    "children": false,
+    "connections": false,
+    "categories": false,
+    "aliases": false
+  }
+}
