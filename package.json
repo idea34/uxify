@@ -1,6 +1,5 @@
 {
-  "name": "@uxify",
-  "version": "1.0.1",
+  "name": "root",
   "private": true,
   "workspaces": [
     "packages/*"
