@@ -1,5 +1,5 @@
 {
-    "name": "input",
+    "name": "@uxify/input",
     "version": "1.0.1",
     "main": "lib/index.js",
     "module": "src/index.js",

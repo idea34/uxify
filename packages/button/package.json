@@ -1,5 +1,5 @@
 {
-    "name": "button",
+    "name": "@uxify/button",
     "version": "1.0.2",
     "main": "lib/index.js",
     "module": "src/index.js",
@@ -12,5 +12,6 @@
         "react": "^15.0.0 || ^16.0.0",
         "react-dom": "^15.0.0 || ^16.0.0",
         "styled-components": "^4.0.0"
-    }
+    },
+    "gitHead": "1d05482b68f8c1749e7bd2a0bddf83c0ede3be7c"
 }
