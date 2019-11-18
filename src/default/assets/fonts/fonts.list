@@ -1,4 +1,0 @@
-# load fonts from google fonts on this list
-# https://www.npmjs.com/package/gulp-google-webfonts
-
-Lato:300,400,700,900
