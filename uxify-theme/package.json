@@ -20,7 +20,7 @@
     "popper.js": "^1.14.6"
   },
   "devDependencies": {
-    "acorn": "^6.0.4",
+    "acorn": "^6.4.1",
     "autoprefixer": "^8.6.3",
     "babel-core": "^6.26.3",
     "babelify": "^8.0.0",
